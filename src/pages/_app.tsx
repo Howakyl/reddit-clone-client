@@ -3,7 +3,7 @@ import React from 'react'
 import { Provider, createClient, dedupExchange, fetchExchange } from 'urql'
 import { cacheExchange, Cache, QueryInput } from '@urql/exchange-graphcache';
 import theme from '../theme';
-import { LoginMutation, MeDocument, MeQuery } from '../generated/graphql';
+import { LoginMutation, MeDocument, MeQuery, RegisterMutation } from '../generated/graphql';
 
 function betterUpdateQuery<Result, Query> (
   cache: Cache,
@@ -37,6 +37,23 @@ const client = createClient({
                 }
               }
             )
+        },
+
+        register: (_result, args, cache, info) => {
+          betterUpdateQuery<RegisterMutation, MeQuery>(
+            cache, 
+            {query: MeDocument}, 
+            _result,
+            (result, query) => {
+              if (result.register.errors) {
+                return query
+              } else {
+                return {
+                  me: result.register.user
+                }
+              }
+            }
+          )
         },
       },
     },
