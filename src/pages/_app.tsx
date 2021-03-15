@@ -29,11 +29,11 @@ const client = createClient({
               _result,
               (result, query) => {
                 if (result.login.errors) {
-                  return query
+                  return query;
                 } else {
                   return {
                     me: result.login.user
-                  }
+                  };
                 }
               }
             )
