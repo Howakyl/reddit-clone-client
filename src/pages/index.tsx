@@ -2,7 +2,7 @@ import { NavBar } from "../components/NavBar";
 
 const Index = () => 
   <> 
-    <NavBar></NavBar>
+    <NavBar />
   </>
 
 export default Index;
